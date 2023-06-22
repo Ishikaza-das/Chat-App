@@ -1,3 +1,4 @@
+import React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth, database } from '../misc/firebase';
 

@@ -13,6 +13,3 @@ function App() {
     // </BrowserRouter>
     <div>hello</div>
   );
-}
-
-export default App;

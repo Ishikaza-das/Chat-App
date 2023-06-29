@@ -6,8 +6,8 @@ import { database, storage } from '../../misc/firebase';
 import ProfileAvatar from '../ProfileAvatar';
 import { useProfile } from '../../context/profile.context';
 
-const fileInputTypes = '.png, .jpeg. jpg';
-const acceptedFileTypes = ['image/png,', 'image/jpeg', 'image/pjpeg'];
+const fileInputTypes = '.png, .jpeg., jpg';
+const acceptedFileTypes = ['image/png', 'image/jpeg', 'image/pjpeg'];
 const isValidFile = file => acceptedFileTypes.includes(file.type);
 const getBlob = canvas => {
   return new Promise((reslove, reject) => {

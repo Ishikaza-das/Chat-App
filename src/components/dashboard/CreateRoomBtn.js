@@ -38,7 +38,7 @@ const CreateRoomBtn = () => {
   }, []);
 
   const onSubmit = async () => {
-    if (formRef.current.check()) {
+    if (!formRef.current.check()) {
       return;
     }
     setIsLoading(true);

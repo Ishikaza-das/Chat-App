@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { database } from '../../../misc/firebase';
-import { transformToArrayWithId } from '../../../misc/helpers';
+import { transformToArrWithId } from '../../../misc/helpers';
 import MessageItem from './MessageItem';
 
 const Message = () => {
@@ -18,7 +18,7 @@ const Message = () => {
       .orderByChild('roomId')
       .equalTo(chatId)
       .on('value', snap => {
-        const data = transformToArrayWithId(snap.val());
+        const data = transformToArrWithId(snap.val());
         setMessages(data);
       });
 

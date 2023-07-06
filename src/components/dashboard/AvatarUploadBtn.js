@@ -7,7 +7,7 @@ import ProfileAvatar from '../ProfileAvatar';
 import { useProfile } from '../../context/profile.context';
 import { getUserUpdates } from '../../misc/helpers';
 
-const fileInputTypes = '.png, .jpeg., jpg';
+const fileInputTypes = '.png, .jpeg, .jpg';
 const acceptedFileTypes = ['image/png', 'image/jpeg', 'image/jpg'];
 const isValidFile = file => acceptedFileTypes.includes(file.type);
 const getBlob = canvas => {

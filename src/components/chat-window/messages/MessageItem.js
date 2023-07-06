@@ -6,13 +6,14 @@ import PresenceDot from '../../PresenceDot';
 import { Button } from 'rsuite';
 import { auth } from '../../../misc/firebase';
 import { useCurrentRoom } from '../../../context/current-room.context';
-import { useHover } from '../../../misc/custom-hooks';
+import { useHover, useMediaQuery } from '../../../misc/custom-hooks';
 import IconBtnControl from './IconBtnControl';
 
-const MessageItem = ({ messages, handelAdmin }) => {
-  const { author, createdAt, text } = messages;
+const MessageItem = ({ messages, handelAdmin, handelLike }) => {
+  const { author, createdAt, text, likes, likeCount } = messages;
 
   const [selfRef, isHovered] = useHover();
+  const isMobile = useMediaQuery('(max-width: 992px)');
 
   const isAdmin = useCurrentRoom(v => v.isAdmin);
   const admins = useCurrentRoom(v => v.admins);
@@ -20,6 +21,9 @@ const MessageItem = ({ messages, handelAdmin }) => {
   const isMsgAuthorAdmin = admins.includes(author.uid);
   const isAuthor = auth.currentUser.uid === author.uid;
   const canGrantAdmin = isAdmin && !isAuthor;
+
+  const canShowIcons = isMobile || isHovered;
+  const isLiked = likes && Object.keys(likes).includes(auth.currentUser.uid);
 
   return (
     <li
@@ -55,12 +59,12 @@ const MessageItem = ({ messages, handelAdmin }) => {
 
         <IconBtnControl
           // eslint-disable-next-line no-constant-condition
-          {...(true ? { color: 'red' } : {})}
-          isVisible
+          {...(isLiked ? { color: 'red' } : {})}
+          isVisible={canShowIcons}
           iconName="heart"
           tooltip="Like this message"
-          onClick={() => {}}
-          badgeContent={5}
+          onClick={() => handelLike(messages.id)}
+          badgeContent={likeCount}
         />
       </div>
 

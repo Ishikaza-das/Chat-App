@@ -7,6 +7,7 @@ import { Button } from 'rsuite';
 import { auth } from '../../../misc/firebase';
 import { useCurrentRoom } from '../../../context/current-room.context';
 import { useHover } from '../../../misc/custom-hooks';
+import IconBtnControl from './IconBtnControl';
 
 const MessageItem = ({ messages, handelAdmin }) => {
   const { author, createdAt, text } = messages;
@@ -50,6 +51,16 @@ const MessageItem = ({ messages, handelAdmin }) => {
         <TimeAgo
           datetime={createdAt}
           className="font-normal text-black-45 ml-2"
+        />
+
+        <IconBtnControl
+          // eslint-disable-next-line no-constant-condition
+          {...(true ? { color: 'red' } : {})}
+          isVisible
+          iconName="heart"
+          tooltip="Like this message"
+          onClick={() => {}}
+          badgeContent={5}
         />
       </div>
 

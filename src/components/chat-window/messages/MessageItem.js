@@ -9,7 +9,7 @@ import { useCurrentRoom } from '../../../context/current-room.context';
 import { useHover, useMediaQuery } from '../../../misc/custom-hooks';
 import IconBtnControl from './IconBtnControl';
 
-const MessageItem = ({ messages, handelAdmin, handelLike }) => {
+const MessageItem = ({ messages, handelAdmin, handelLike, handelDelete }) => {
   const { author, createdAt, text, likes, likeCount } = messages;
 
   const [selfRef, isHovered] = useHover();
@@ -58,7 +58,6 @@ const MessageItem = ({ messages, handelAdmin, handelLike }) => {
         />
 
         <IconBtnControl
-          // eslint-disable-next-line no-constant-condition
           {...(isLiked ? { color: 'red' } : {})}
           isVisible={canShowIcons}
           iconName="heart"
@@ -66,6 +65,15 @@ const MessageItem = ({ messages, handelAdmin, handelLike }) => {
           onClick={() => handelLike(messages.id)}
           badgeContent={likeCount}
         />
+
+        {isAuthor && (
+          <IconBtnControl
+            isVisible={canShowIcons}
+            iconName="close"
+            tooltip="Delete this message"
+            onClick={() => handelDelete(messages.id)}
+          />
+        )}
       </div>
 
       <div>

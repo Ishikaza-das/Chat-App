@@ -5,9 +5,13 @@ import ProfileInfoBtnModal from './ProfileInfoBtnModal';
 import PresenceDot from '../../PresenceDot';
 import { Button } from 'rsuite';
 import { auth } from '../../../misc/firebase';
+import { useCurrentRoom } from '../../../context/current-room.context';
+import { useHover } from '../../../misc/custom-hooks';
 
 const MessageItem = ({ messages, handelAdmin }) => {
-  const { author, crreatedAt, text } = messages;
+  const { author, createdAt, text } = messages;
+
+  const [selfRef, isHovered] = useHover();
 
   const isAdmin = useCurrentRoom(v => v.isAdmin);
   const admins = useCurrentRoom(v => v.admins);
@@ -17,7 +21,10 @@ const MessageItem = ({ messages, handelAdmin }) => {
   const canGrantAdmin = isAdmin && !isAuthor;
 
   return (
-    <li className="padded mb-1">
+    <li
+      className={`padded mb-1 cursor-pointer ${isHovered ? 'bg-black-02' : ''}`}
+      ref={selfRef}
+    >
       <div className="d-flex align-item-center font-bolder mb-1">
         <PresenceDot uid={author.uid} />
         <ProfileAvatar
@@ -39,9 +46,9 @@ const MessageItem = ({ messages, handelAdmin }) => {
             </Button>
           )}
         </ProfileInfoBtnModal>
-        />
+
         <TimeAgo
-          datetime={crreatedAt}
+          datetime={createdAt}
           className="font-normal text-black-45 ml-2"
         />
       </div>

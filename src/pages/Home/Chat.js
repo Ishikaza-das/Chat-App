@@ -7,6 +7,7 @@ import { useRooms } from '../../context/rooms.context';
 import { Loader } from 'rsuite';
 import { transformToArr } from '../../misc/helpers';
 import { auth } from '../../misc/firebase';
+import { CurrentRoomProvider } from '../../context/current-room.context';
 
 const Chat = () => {
   const { chatId } = useParams();
@@ -32,7 +33,7 @@ const Chat = () => {
   };
 
   return (
-    <currentRoomProvider data={currentRoomData}>
+    <CurrentRoomProvider data={currentRoomData}>
       <div className="chat-top">
         <ChatTop />
       </div>
@@ -42,7 +43,7 @@ const Chat = () => {
       <div className="chat-bottom">
         <ChatBottom />
       </div>
-    </currentRoomProvider>
+    </CurrentRoomProvider>
   );
 };
 

@@ -58,7 +58,7 @@ const Message = () => {
       {isChatEmpty && <li> No message yet </li>}
       {canShowMessages &&
         messages.map(msg => (
-          <MessageItem key={msg.id} message={msg} handelAdmin={handelAdmin} />
+          <MessageItem key={msg.id} messages={msg} handelAdmin={handelAdmin} />
         ))}
     </ul>
   );

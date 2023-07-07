@@ -8,9 +8,22 @@ import { auth } from '../../../misc/firebase';
 import { useCurrentRoom } from '../../../context/current-room.context';
 import { useHover, useMediaQuery } from '../../../misc/custom-hooks';
 import IconBtnControl from './IconBtnControl';
+import ImagebtnModal from './ImgBtnModal';
+
+const renderFileMessage = file => {
+  if (file.contentType.includes('image')) {
+    return (
+      <div className="height-220">
+        <ImagebtnModal src={file.url} fileName={file.name} />
+      </div>
+    );
+  }
+
+  return <a href={file.url}>Download {file.name}</a>;
+};
 
 const MessageItem = ({ messages, handelAdmin, handelLike, handelDelete }) => {
-  const { author, createdAt, text, likes, likeCount } = messages;
+  const { author, createdAt, text, file, likes, likeCount } = messages;
 
   const [selfRef, isHovered] = useHover();
   const isMobile = useMediaQuery('(max-width: 992px)');
@@ -77,7 +90,8 @@ const MessageItem = ({ messages, handelAdmin, handelLike, handelDelete }) => {
       </div>
 
       <div>
-        <span className="word-break-all">{text}</span>
+        {text && <span className="word-break-all">{text}</span>}
+        {file && renderFileMessage(file)}
       </div>
     </li>
   );

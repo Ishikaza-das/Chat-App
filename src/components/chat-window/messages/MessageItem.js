@@ -19,6 +19,15 @@ const renderFileMessage = file => {
     );
   }
 
+  if (file.contentType.includes('audio')) {
+    return (
+      <audio controls>
+        <source src={file.url} type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+    );
+  }
+
   return <a href={file.url}>Download {file.name}</a>;
 };
 
@@ -84,7 +93,7 @@ const MessageItem = ({ messages, handelAdmin, handelLike, handelDelete }) => {
             isVisible={canShowIcons}
             iconName="close"
             tooltip="Delete this message"
-            onClick={() => handelDelete(messages.id)}
+            onClick={() => handelDelete(messages.id, file)}
           />
         )}
       </div>

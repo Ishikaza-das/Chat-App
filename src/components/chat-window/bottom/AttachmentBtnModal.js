@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router';
 import { Alert, Button, Icon, InputGroup, Modal, Uploader } from 'rsuite';
 import { useModalstate } from '../../../misc/custom-hooks';
 import { storage } from '../../../misc/firebase';
-import { useParams } from 'react-router';
 
 const MAX_FILE_SIZE = 1000 * 1024 * 5;
 
@@ -58,10 +58,12 @@ const AttachmentBtnModal = ({ afterUpload }) => {
       <InputGroup.Button onClick={open}>
         <Icon icon="attachment" />
       </InputGroup.Button>
+
       <Modal show={isOpen} onHide={close}>
         <Modal.Header>
           <Modal.Title>Upload files</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <Uploader
             autoUpload={false}
@@ -74,9 +76,9 @@ const AttachmentBtnModal = ({ afterUpload }) => {
             disabled={isLoading}
           />
         </Modal.Body>
+
         <Modal.Footer>
           <Button block disabled={isLoading} onClick={onUpload}>
-            {' '}
             Send to chat
           </Button>
           <div className="text-right mt-2">
